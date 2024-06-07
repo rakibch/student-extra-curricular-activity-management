@@ -30,7 +30,7 @@
                                                 Application</button>
                                         @elseif($value['status']==0)
                                             <button class="btn btn-info m-b-10 m-l-5 get-enrolled"
-                                                data-id="{{ $value['id'] }}">Apply for 
+                                                data-id="{{ $value['id'] }}" <?php if($userId==2) echo 'disabled';?>>Apply for 
                                                 Enrollment</button>
                                         @elseif($value['status']==2)
                                             <button class="btn btn-info m-b-10 m-l-5 get-enrolled"

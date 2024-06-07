@@ -61,7 +61,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/enroll/update', [ActivityController::class, 'updateRecord'])->name('enrollment.update');
     Route::get('/enrollement/application/approve',[ActivityController::class,'enrollmentApplicationList'])->name('enrollment.application.approve');
     //Parent 
-    Route::get('/enrollment-as-parent', [ParentController::class,'viewEnrollementAsParent'])->name('enrollment.parent');
+    Route::post('/student-id-check', [ParentController::class, 'checkStudentId'])->name('student.id.check');
+    Route::get('/enrollment/as/parent', [ParentController::class,'viewEnrollementAsParent'])->name('enrollment.parent');
 });
 Route::get('/clear-data', [ClearDataController::class, 'clearData']);
 Route::post('/edit-route-name',[HomeController::class, 'editRouteName'])->name('editRouteName');
