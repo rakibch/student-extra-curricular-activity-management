@@ -7,31 +7,9 @@
             <section id="main-content">
                 <div class="row">
                     <!-- /# column -->
-                    <form id="student-search-form" method="post"
-                        action="{{ route('student.id.check') }}">
-                        @csrf
-                        <div class="col-lg-8">
-                            <input id="student-id-input" name="student_id" class="form-control input-default"
-                                type="text" placeholder="Search student by ID...">
-                        </div>
-                        <div class="col-lg-4">
-                            <button type="submit" class="btn btn-info m-b-10 m-l-5">Search</button>
-                        </div>
-                    </form>
-                    <div class="col-lg-12">
-                        <div id="student-result" class="mt-3" style="display:none;">
-                            <div class="card">
-                                <div class="card-body">
-                                    <button type="button" class="close" aria-label="Close"
-                                        onclick="$('#student-result').hide()">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5 class="card-title" id="student-name"></h5>
-                                    <p class="card-text" id="student-id"></p>
-                                    <img id="student-image" src="" alt="Student Image" width="100">
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-lg-4">
+                        <input class="form-control input-default" type="text" placeholder="Search...">
+                        <button class="btn btn-default mt-2">Search</button>
                     </div>
                     <div class="col-lg-12">
                         <div class="card">
@@ -47,50 +25,33 @@
                                                 <th>Student name</th>
                                                 <th>Student ID</th>
                                                 <th>Image</th>
-                                                <th>Gender</th>
-                                                <th>Parent Name</th>
+                                                <th>Class</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if($studentList->isEmpty())
-                                                <tr>
-                                                    <td colspan="6" class="text-center">No data found</td>
-                                                </tr>
-                                            @else
-                                                @foreach($studentList as $key => $value)
-                                                    <tr>
-                                                        <th scope="row">{{ ++$key }}</th>
-                                                        <td>{{ $value->name }}</td>
-                                                        <td>{{ $value->student_id }}</td>
-                                                        <td><img src="{{ asset('storage/uploads/' . $value->profile_image) }}"
-                                                                width="50"></td>
-                                                        <td>
-                                                            @if($value->gender == 1)
-                                                                Male
-                                                            @elseif($value->gender == 2)
-                                                                Female
-                                                            @elseif($value->gender == 3)
-                                                                Other
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                        @if($value['status'] == 1)
-                                                            <a href="#!" type="button" class="btn btn-info btn-rounded m-b-10 m-l-5">Applied</a>
-                                                        @elseif($value['status'] == 2)
-                                                            <a href="#!" type="button" class="btn btn-success btn-rounded m-b-10 m-l-5">Accepted</a>
-                                                        @elseif($value['status'] == 3)
-                                                            <a href="#!" type="button" class="btn btn-danger btn-rounded m-b-10 m-l-5">Cancelled</a>
-                                                        @else
-                                                            <a href="#!" type="button" class="btn btn-default btn-rounded m-b-10 m-l-5">Apply as Parent</a>
-                                                        @endif
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
+                                        @foreach($fetchStudentList as $key=>$value)
+                                            <tr>
+                                                <th scope="row">{{++$key}}</th>
+                                                <td>{{ $value->name }}</td>
+                                                <td>{{ $value->student_id }}</td>
+                                                <td><img src="{{ asset('storage/uploads/'.$value->profile_image) }}" width="50"></td>
+                                                <td>{{ $value->class }}</td>
+                                                <td>
+                                                    <a href="#!" class="delete-link" data-id=""><i
+                                                            class="ti-trash"></i></a>
+                                                    <a href="#!" class="ml-1"><i class="ti-pencil-alt"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
-
+                                        <tr>
+                                            <td colspan="6">
+                                                {{ $fetchStudentList->links() }}
+                                            </td>
+                                        </tr>
                                     </table>
+
                                 </div>
                             </div>
                         </div>
@@ -113,35 +74,62 @@
 </div>
 @endsection
 <script>
-    $(document).ready(function () {
-        $('#student-search-form').on('submit', function (e) {
-            e.preventDefault();
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll(".delete-link").forEach(function (link) {
+            link.addEventListener("click", function (event) {
+                event.preventDefault();
+                var activityId = this.getAttribute("data-id");
+                swal({
+                    title: "Are you sure to delete ?",
+                    text: "You will not be able to recover this imaginary file !!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it !!",
+                    cancelButtonText: "No, cancel it !!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false,
+                }, function (isConfirmed) {
+                    if (isConfirmed) {
+                        // Send AJAX request to delete the activity
+                        deleteActivity(activityId);
+                    } else {
+                        swal("Cancelled", "Your activity is safe!", "error");
+                    }
+                })
+            });
+        });
 
-            var studentId = $('#student-id-input').val();
-            var url = $(this).attr('action');
+        function deleteActivity(activityId) {
+            var url = "{{ route('activity.delete') }}";
+            var formData = new FormData();
+            formData.append('id', activityId);
 
             $.ajax({
                 url: url,
                 type: 'POST',
-                data: {
-                    student_id: studentId,
-                    _token: $('meta[name="csrf-token"]').attr('content')
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-Token': "{{ csrf_token() }}",
                 },
-                success: function (response) {
-                    if (response.status === 'success') {
-                        $('#student-name').text(response.data.name);
-                        $('#student-id').text(response.data.student_id);
-                        $('#student-image').attr('src', response.data.profile_image);
-                        $('#student-result').show();
+                success: function (data) {
+                    if (data.success) {
+                        swal("Deleted !!", "Your selected activity has been deleted !!",
+                            "success");
+                        // Reload the page or update the UI as needed
+                        location.reload()
                     } else {
-                        alert(response.message);
+                        swal("Error", "Failed to delete the activity", "error");
                     }
                 },
-                error: function (xhr) {
-                    alert('An error occurred. Please try again.');
+                error: function (error) {
+                    console.error('Error:', error);
+                    swal("Error", "Failed to delete the activity", "error");
                 }
             });
-        });
+        }
     });
 
 </script>
