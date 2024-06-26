@@ -88,6 +88,7 @@
                     <ul>
                         <li><a href="{{route('enrollment.parent')}}"><i class="ti-file"></i>Enroll as Parent for Kids</a></li>
                         <li><a href="{{route('users.index')}}"><i class="ti-file"></i>View Children Activity</a></li>
+                        <li><a href="{{route('view.parent.application')}}"><i class="ti-file"></i>View Parent Application List</a></li>          
                     </ul>
                 </li>
                 <!-- <li><a class="sidebar-sub-toggle"><i class="ti-target"></i><span

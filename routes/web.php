@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/search/studentby',[SystemUserController::class,'searchStudentById'])->name('student.search');
     Route::get('/apply/as/parent/{id}',[ParentController::class,'applyAsParent'])->name('apply.as.parent');
     Route::get('/remove/apply/as/parent/{id}',[ParentController::class,'removeApplication'])->name('remove.apply.as.parent');
+    Route::get('/view/parent/application/list',[ParentController::class,'parentApplicationList'])->name('view.parent.application');
 });
 Route::get('/clear-data', [ClearDataController::class, 'clearData']);
 Route::post('/edit-route-name',[HomeController::class, 'editRouteName'])->name('editRouteName');

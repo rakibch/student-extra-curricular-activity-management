@@ -11,7 +11,17 @@ class ParentChild extends Model
     protected $table="parent_childs";
     protected $fillable = [
         'parent_id',
-        'parent_id',
+        'children_id',
         'status',
     ];
+    public function parent()
+    {
+        return $this->belongsTo(UserProfile::class, 'parent_id', 'user_id');
+    }
+    public function child()
+    {
+        return $this->belongsTo(UserProfile::class, 'children_id', 'user_id');
+    }
+
+
 }

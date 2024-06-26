@@ -34,4 +34,13 @@ class UserProfile extends Model
     {
         return $this->hasMany(EnrolledUserActivity::class, 'user_id', 'user_id');
     }
+    public function parentRelationships()
+    {
+        return $this->hasMany(ParentChild::class, 'parent_id', 'user_id');
+    }
+
+    public function childRelationships()
+    {
+        return $this->hasMany(ParentChild::class, 'children_id', 'user_id');
+    }
 }

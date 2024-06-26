@@ -20,7 +20,7 @@ class ParentController extends Controller
     {
         $update = UserProfile::where('id',$id)->update(['is_applied_by_parent'=>1]);
         $studentInfo = UserProfile::where('id',$id)->first();
-        $studenId = $studentInfo->id;
+        $studenId = $studentInfo->user_id;
         $parentId = Auth::id();
         
         $parentChild = ParentChild::updateOrInsert(
@@ -48,5 +48,23 @@ class ParentController extends Controller
         {
             return redirect()->route('enrollment.parent')->with('deleleteApplicationMsg', 'Application as parent removed');
         }
+    }
+
+    public function parentApplicationList()
+    {
+        $data = ParentChild::with('parent','child')->get();
+        foreach($data as $key=>$value)
+        {
+            $data[] =[
+                'parent_name'=>$value->parent->name,
+                'children_name'=>$value->child->name,
+                'student_id'=>$value->child->student_id,
+                'class'=>$value->child->class,
+                'status'=>$value->status,
+            ];   
+        }
+        echo "<pre>";
+        print_r($data);
+        exit();
     }
 }
