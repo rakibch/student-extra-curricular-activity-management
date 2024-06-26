@@ -28,6 +28,7 @@ class UserProfile extends Model
         'gender',
         'student_id',
         'teacher_id',
+        'is_applied_by_parent'
     ];
     public function enrolledUserActivities()
     {

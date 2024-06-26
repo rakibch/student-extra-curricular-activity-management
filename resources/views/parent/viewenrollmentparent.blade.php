@@ -10,7 +10,7 @@
                     <div class="col-lg-4">
                     <form action="{{ route('student.search') }}" method="POST">
                         @csrf
-                        <input class="form-control input-default" name="search" type="text" placeholder="Search...">
+                        <input class="form-control input-default" name="search" type="text" placeholder="Search by Student ID...">
                         <button type="submit" class="btn btn-default mt-2">Search</button>
                     </form>
                     </div>
@@ -21,6 +21,18 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
+                                    @if(session('success'))
+                                        <div class="alert alert-success alert-dismissible fade show">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <strong>Success! </strong>{{ session('success') }}
+                                        </div>
+                                    @endif
+                                    @if(session('deleleteApplicationMsg'))
+                                    <div class="alert alert-info alert-dismissible fade show">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <strong>Success! </strong>{{ session('deleleteApplicationMsg') }}
+                                        </div>
+                                    @endif
                                     <table class="table table-hover ">
                                         <thead>
                                             <tr>
@@ -41,7 +53,14 @@
                                                 <td><img src="{{ asset('storage/uploads/'.$value->profile_image) }}" width="50"></td>
                                                 <td>{{ $value->class }}</td>
                                                 <td>
-                                                    <button class="btn btn-success btn-sm m-b-10 m-l-5">Apply as Parent</button>
+                                                    @if($value->is_applied_by_parent == 0)
+                                                        <a href="{{ route('apply.as.parent', ['id' => $value->id]) }}" class="btn btn-primary btn-sm m-b-10 m-l-5">Apply as Parent</a>
+                                                    @elseif($value->is_applied_by_parent == 1)
+                                                        <button class="btn btn-info btn-sm m-b-10 m-l-5">Applied</button>
+                                                        <a href="{{ route('remove.apply.as.parent', ['id' => $value->id]) }}" class="btn btn-danger btn-sm m-b-10 m-l-5">Remove Application</a>
+                                                    @elseif($value->is_applied_by_parent == 2)
+                                                        <button class="btn btn-success btn-sm m-b-10 m-l-5">Approved</button>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
