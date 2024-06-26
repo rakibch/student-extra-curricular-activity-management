@@ -62,6 +62,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/enrollement/application/approve',[ActivityController::class,'enrollmentApplicationList'])->name('enrollment.application.approve');
     //Parent 
     Route::get('/enrollment-as-parent', [ParentController::class,'viewEnrollementAsParent'])->name('enrollment.parent');
+    Route::post('/search/studentby/id',[SystemUserController::class,'searchStudentById'])->name('student.search');
 });
 Route::get('/clear-data', [ClearDataController::class, 'clearData']);
 Route::post('/edit-route-name',[HomeController::class, 'editRouteName'])->name('editRouteName');

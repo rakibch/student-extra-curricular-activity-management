@@ -8,8 +8,11 @@
                 <div class="row">
                     <!-- /# column -->
                     <div class="col-lg-4">
-                        <input class="form-control input-default" type="text" placeholder="Search...">
-                        <button class="btn btn-default mt-2">Search</button>
+                    <form action="{{ route('student.search') }}" method="POST">
+                        @csrf
+                        <input class="form-control input-default" name="search" type="text" placeholder="Search...">
+                        <button type="submit" class="btn btn-default mt-2">Search</button>
+                    </form>
                     </div>
                     <div class="col-lg-12">
                         <div class="card">
@@ -38,9 +41,7 @@
                                                 <td><img src="{{ asset('storage/uploads/'.$value->profile_image) }}" width="50"></td>
                                                 <td>{{ $value->class }}</td>
                                                 <td>
-                                                    <a href="#!" class="delete-link" data-id=""><i
-                                                            class="ti-trash"></i></a>
-                                                    <a href="#!" class="ml-1"><i class="ti-pencil-alt"></i></a>
+                                                    <button class="btn btn-success btn-sm m-b-10 m-l-5">Apply as Parent</button>
                                                 </td>
                                             </tr>
                                         @endforeach

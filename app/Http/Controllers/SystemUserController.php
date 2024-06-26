@@ -10,6 +10,14 @@ use Laravel\Ui\Presets\React;
 use Illuminate\Support\Facades\Validator;
 class SystemUserController extends Controller
 {
+    public function searchStudentById(Request $request)
+    {
+        $searchItem = $request->search;
+        $query = UserProfile::query();
+        $query->where('student_id', 'LIKE', "%{$searchItem}%");
+        $fetchStudentList = $query->paginate(5);
+        return view('parent.viewenrollmentparent',compact('fetchStudentList'));
+    }
     // Show user profiles information
     public function index()
     {
