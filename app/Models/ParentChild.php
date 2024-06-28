@@ -13,6 +13,7 @@ class ParentChild extends Model
         'parent_id',
         'children_id',
         'status',
+        'user_profile_id'
     ];
     public function parent()
     {

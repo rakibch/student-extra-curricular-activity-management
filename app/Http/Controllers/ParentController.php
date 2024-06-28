@@ -21,11 +21,12 @@ class ParentController extends Controller
         $update = UserProfile::where('id',$id)->update(['is_applied_by_parent'=>1]);
         $studentInfo = UserProfile::where('id',$id)->first();
         $studenId = $studentInfo->user_id;
+        $userProfileId = $studentInfo->id;
         $parentId = Auth::id();
         
         $parentChild = ParentChild::updateOrInsert(
             ['parent_id' => $parentId, 'children_id' => $studenId],
-            ['parent_id' => $parentId, 'children_id' => $studenId]
+            ['parent_id' => $parentId, 'children_id' => $studenId,'user_profile_id' => $userProfileId,]
         ); 
         if($parentChild)
         {
@@ -56,15 +57,20 @@ class ParentController extends Controller
         foreach($data as $key=>$value)
         {
             $data[] =[
-                'parent_name'=>$value->parent->name,
-                'children_name'=>$value->child->name,
-                'student_id'=>$value->child->student_id,
-                'class'=>$value->child->class,
-                'status'=>$value->status,
+                'id'=>$value->id,
+                'parent_name'=>$value->parent->name ??'',
+                'children_name'=>$value->child->name ??'',
+                'student_id'=>$value->child->student_id??'',
+                'class'=>$value->child->class??'',
+                'status'=>$value->status??'',
+                'user_profile_id'=>$value->user_profile_id,
             ];   
         }
-        echo "<pre>";
-        print_r($data);
-        exit();
+        return view('parent.parentapplicationaccept',compact('data'));
+    }
+
+    public function acceptParentApplicationbyAdmin($id)
+    {
+        echo $id;        
     }
 }
