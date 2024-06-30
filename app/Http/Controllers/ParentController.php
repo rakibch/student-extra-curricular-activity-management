@@ -71,6 +71,32 @@ class ParentController extends Controller
 
     public function acceptParentApplicationbyAdmin($id)
     {
-        echo $id;        
+        $userProfileId = $id;
+        $updateRecord = ParentChild::where('user_profile_id',$userProfileId)->update(
+            ['status'=>3]
+        );
+        if($updateRecord)
+        {
+            $updateUserProfileRecord = UserProfile::where('id',$userProfileId)->update(
+                ['is_applied_by_parent'=>2]
+            );
+            //need to work in here to set this route pareameter at night 
+            return redirect()->route('accept.approve.by.admin')->with('success', 'Application as parent successful approved');
+        }   
+    }
+
+    public function removeApplyasParentByAdmin($id)
+    {
+        $userProfileId = $id;
+        $updateRecord = ParentChild::where('user_profile_id',$userProfileId)->update(
+            ['status'=>2]
+        );
+        if($updateRecord)
+        {
+            $updateUserProfileRecord = UserProfile::where('id',$userProfileId)->update(
+                ['is_applied_by_parent'=>3]
+            );
+            return redirect()->route('accept.approve.by.admin')->with('deleleteApplicationMsg', 'Application as parent successfully removed');
+        }   
     }
 }

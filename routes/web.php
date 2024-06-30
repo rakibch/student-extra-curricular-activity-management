@@ -67,6 +67,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/remove/apply/as/parent/{id}',[ParentController::class,'removeApplication'])->name('remove.apply.as.parent');
     Route::get('/view/parent/application/list',[ParentController::class,'parentApplicationList'])->name('view.parent.application');
     Route::get('accept/approve/by/admin/{id}',[ParentController::class,'acceptParentApplicationbyAdmin'])->name('accept.approve.by.admin');
+    Route::get('remove/apply/as/parent/by/admin/{id}',[ParentController::class,'removeApplyasParentByAdmin'])->name('remove.apply.as.parent.by.admin');
 });
 Route::get('/clear-data', [ClearDataController::class, 'clearData']);
 Route::post('/edit-route-name',[HomeController::class, 'editRouteName'])->name('editRouteName');

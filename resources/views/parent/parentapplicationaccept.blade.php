@@ -48,11 +48,14 @@
                                                 <td>
                                                     @if($value['status'] == 1)
                                                         <a href="{{ route('accept.approve.by.admin', ['id' => $value['user_profile_id']]) }}" class="btn btn-info btn-sm m-b-10 m-l-5">Make Approve</a>
-                                                        <a href="{{ route('remove.apply.as.parent', ['id' => $value['user_profile_id']]) }}" class="btn btn-danger btn-sm m-b-10 m-l-5">Reject Application</a>
+                                                        <a href="{{ route('remove.apply.as.parent.by.admin', ['id' => $value['user_profile_id']]) }}" class="btn btn-danger btn-sm m-b-10 m-l-5">Reject Application</a>
                                                     @elseif($value['status'] == 3)
                                                         <button class="btn btn-success btn-sm m-b-10 m-l-5">Approved</button>
-                                                        <a href="{{ route('remove.apply.as.parent', ['id' => $value['user_profile_id']]) }}" class="btn btn-danger btn-sm m-b-10 m-l-5">Reject Application</a>
-                                                   @endif
+                                                        <a href="{{ route('remove.apply.as.parent.by.admin', ['id' => $value['user_profile_id']]) }}" class="btn btn-danger btn-sm m-b-10 m-l-5">Reject Application</a>
+                                                    @elseif($value['status'] == 2)
+                                                    <a href="{{ route('accept.approve.by.admin', ['id' => $value['user_profile_id']]) }}" class="btn btn-info btn-sm m-b-10 m-l-5">Make Approve</a>
+                                                    <a href="#!" class="btn btn-danger btn-sm m-b-10 m-l-5">Application Rejected</a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
