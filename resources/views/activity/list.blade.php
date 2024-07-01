@@ -25,7 +25,9 @@
                                                 <th>Start Date</th>
                                                 <th>End Date</th>
                                                 <th>Description</th>
+                                                @can('list-activity')
                                                 <th>Action</th>
+                                                @endcan
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -40,11 +42,13 @@
                                                     <td>{{ $value->start_date }}</td>
                                                     <td>{{ $value->end_date }}</td>
                                                     <td>{{ $value->activity_description }}</td>
+                                                    @can('list-activity')
                                                     <td>
                                                         <a href="#!" class="delete-link" data-id="{{ $value->id }}"><i
                                                                 class="ti-trash"></i></a>
                                                         <a href="{{ route('activity.edit', ['id' => $value->id]) }}" class="ml-1"><i class="ti-pencil-alt"></i></a>
                                                     </td>
+                                                    @endcan
                                                 </tr>
                                             @endforeach
                                         </tbody>

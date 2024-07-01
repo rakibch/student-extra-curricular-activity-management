@@ -15,7 +15,7 @@ class ParentController extends Controller
     {
         $userID=Auth::id();
         $fetchStudentActivities = ParentChild::where('parent_id',$userID)->get();
-       
+        $data=[];
         foreach($fetchStudentActivities as $key=>$value)
         {
             $studentId = $value->children_id;
@@ -23,17 +23,14 @@ class ParentController extends Controller
             foreach($fetchJoinedActivityInfo as $key1=>$value1)
             {
                 $data[] = [
-                    'activiity_name'=>$value1->activity_details->activity_name,
-                    'activiity_location'=>$value1->activity_details->activity_location,
-                    'student_name'=>$value1->user_details->name,
+                    'activiity_name'=>$value1->activity_details->activity_name??'',
+                    'activiity_location'=>$value1->activity_details->activity_location??'',
+                    'student_name'=>$value1->user_details->name??'',
+                    'student_id'=>$value1->user_details->student_id??'',
                 ];
             }
-
         }
-        echo '<pre>';
-        print_r($data);
-        exit();
-        //return view('');
+        return view('parent.viewchildrensactivity',compact('data'));
     }
     public function viewEnrollementAsParent()
     {

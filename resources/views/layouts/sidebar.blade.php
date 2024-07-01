@@ -32,12 +32,9 @@
                             class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
                         <li><a href="{{route('enroll.activity')}}"><i class="ti-arrow-right"></i>Enroll in Activity</a></li>
-                        <li><a href="{{route('create.activity')}}"><i class="ti-arrow-right"></i>Create Activity</a></li>
-                        <li><a href="{{route('activity.list')}}"><i class="ti-arrow-right"></i>Activity List</a></li>
                         @can('enrollment-application-approve')
                         <li><a href="{{route('enrollment.application.approve')}}"><i class="ti-arrow-right"></i>Enrollment Application Approve</a></li>
                         @endcan
-                        <li><a href="{{route('activity.list')}}"><i class="ti-arrow-right"></i>Parent Request</a></li>
                         <!-- <li><a href="{{route('permissions.index')}}"><i class="ti-arrow-right"></i>User Engagement Report</a></li> -->
                     </ul>
                 </li>
@@ -47,47 +44,35 @@
                 <li><a class="sidebar-sub-toggle"><i class="ti-angle-right"></i>Extra Curricular Activities<span
                             class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
-                        <li><a href="{{route('users.index')}}"><i class="ti-arrow-right"></i>Add an Activity</a></li>
-                        <li><a href="{{route('users.index')}}"><i class="ti-arrow-right"></i>List of Activities</a></li>
+                        <li><a href="{{route('create.activity')}}"><i class="ti-arrow-right"></i>Create Activity</a></li>
+                        <li><a href="{{route('activity.list')}}"><i class="ti-arrow-right"></i>Activity List</a></li>
                         <!-- <li><a href="{{route('permissions.index')}}"><i class="ti-arrow-right"></i>User Engagement Report</a></li> -->
                     </ul>
                 </li>
                 @endcan
-                {{-- Notification --}}
-                @can('notification')
-                <li><a class="sidebar-sub-toggle"><i class="ti-angle-right"></i>Notification<span
-                            class="sidebar-collapse-icon ti-angle-down"></span></a>
-                    <ul>
-                        <li><a href="{{route('users.index')}}"><i class="ti-arrow-right"></i>Recent Notification</a></li>
-                        <!-- <li><a href="{{route('permissions.index')}}"><i class="ti-arrow-right"></i>User Engagement Report</a></li> -->
-                    </ul>
-                </li>
-                @endcan
+        
                 {{-- Report --}}
                 @can('reports')
-                <li><a class="sidebar-sub-toggle"><i class="ti-angle-right"></i>Reports<span
+                <li><a class="sidebar-sub-toggle"><i class="ti-angle-right"></i>Report<span
                             class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
-                        <li><a href="{{route('users.index')}}"><i class="ti-arrow-right"></i>Extra-curricular Activity Report</a></li>
-                        <li><a href="{{route('permissions.index')}}"><i class="ti-arrow-right"></i>User Engagement Report</a></li>
+                        <li><a href="{{route('view.activities.report')}}"><i class="ti-arrow-right"></i>Extra-curricular Activity Report</a></li>
                     </ul>
                 </li>
                 @endcan
                 {{-- System User Activities --}}
-                @can('system-user-activities')
-                <li><a class="sidebar-sub-toggle"><i class="ti-angle-right"></i>System activites<span
-                            class="sidebar-collapse-icon ti-angle-down"></span></a>
-                    <ul>
-                        <li><a href="{{route('users.index')}}"><i class="ti-arrow-right"></i>List of  Activities</a></li>
-                    </ul>
-                </li>
-                @endcan
                 <li><a class="sidebar-sub-toggle"><i class="ti-angle-right"></i>Parent <span
                             class="sidebar-collapse-icon ti-angle-down"></span></a>
                     <ul>
+                        @can('enroll-as-parent-for-kids')
                         <li><a href="{{route('enrollment.parent')}}"><i class="ti-arrow-right"></i>Enroll as Parent for Kids</a></li>
+                        @endcan
+                        @can('view-children-activity')
                         <li><a href="{{route('view.children.activity')}}"><i class="ti-arrow-right"></i>View Children Activity</a></li>
+                        @endcan
+                        @can('view-parent-application-list')
                         <li><a href="{{route('view.parent.application')}}"><i class="ti-arrow-right"></i>View Parent Application List</a></li>          
+                        @endcan
                     </ul>
                 </li>
                 <!-- <li><a class="sidebar-sub-toggle"><i class="ti-angle-right"></i><span

@@ -69,6 +69,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('accept/approve/by/admin/{id}',[ParentController::class,'acceptParentApplicationbyAdmin'])->name('accept.approve.by.admin');
     Route::get('remove/apply/as/parent/by/admin/{id}',[ParentController::class,'removeApplyasParentByAdmin'])->name('remove.apply.as.parent.by.admin');
     Route::get('view/children/activity',[ParentController::class,'viewChildrenActivity'])->name('view.children.activity');
+    Route::get('view/activities/report',[SystemUserController::class,'viewActivitiesReport'])->name('view.activities.report');
+    Route::get('/search-activities', [SystemUserController::class, 'search'])->name('search.activities');
+    Route::get('/generate-pdf', [SystemUserController::class, 'generatePDF'])->name('generate.pdf');
+
 });
 Route::get('/clear-data', [ClearDataController::class, 'clearData']);
 Route::post('/edit-route-name',[HomeController::class, 'editRouteName'])->name('editRouteName');
