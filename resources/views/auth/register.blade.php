@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Focus Admin: Widget</title>
+    <title>Student Activity Management System</title>
 
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
@@ -29,17 +29,16 @@
 </head>
 
 <body class="bg-primary">
-
     <div class="unix-login">
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="login-content">
                         <div class="login-logo">
-                            <a href="index.html"><span>Focus</span></a>
+                            <!-- <a href="index.html"><span>Focus</span></a> -->
                         </div>
                         <div class="login-form">
-                            <h4>Register to Administration</h4>
+                            <h4>Register Here</h4>
                             <form method="POST" action="{{ route('register') }}">
                                 @csrf
                                 <div class="form-group">

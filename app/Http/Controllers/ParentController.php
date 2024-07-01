@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EnrolledUserActivity;
 use App\Models\ParentChild;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
@@ -10,6 +11,30 @@ use Illuminate\Support\Facades\Auth;
 class ParentController extends Controller
 {
     //
+    public function viewChildrenActivity()
+    {
+        $userID=Auth::id();
+        $fetchStudentActivities = ParentChild::where('parent_id',$userID)->get();
+       
+        foreach($fetchStudentActivities as $key=>$value)
+        {
+            $studentId = $value->children_id;
+            $fetchJoinedActivityInfo = EnrolledUserActivity::with('activity_details','user_details')->where('user_id',$studentId)->get();
+            foreach($fetchJoinedActivityInfo as $key1=>$value1)
+            {
+                $data[] = [
+                    'activiity_name'=>$value1->activity_details->activity_name,
+                    'activiity_location'=>$value1->activity_details->activity_location,
+                    'student_name'=>$value1->user_details->name,
+                ];
+            }
+
+        }
+        echo '<pre>';
+        print_r($data);
+        exit();
+        //return view('');
+    }
     public function viewEnrollementAsParent()
     {
         $fetchStudentList = UserProfile::where('profile_type',3)->paginate(4);
@@ -56,7 +81,7 @@ class ParentController extends Controller
         $data = ParentChild::with('parent','child')->get();
         foreach($data as $key=>$value)
         {
-            $data[] =[
+            $dataList[] =[
                 'id'=>$value->id,
                 'parent_name'=>$value->parent->name ??'',
                 'children_name'=>$value->child->name ??'',
@@ -66,7 +91,10 @@ class ParentController extends Controller
                 'user_profile_id'=>$value->user_profile_id,
             ];   
         }
-        return view('parent.parentapplicationaccept',compact('data'));
+        // echo "<pre>";
+        // print_r($dataList);
+        // exit();
+        return view('parent.parentapplicationaccept',compact('dataList'));
     }
 
     public function acceptParentApplicationbyAdmin($id)
@@ -81,7 +109,7 @@ class ParentController extends Controller
                 ['is_applied_by_parent'=>2]
             );
             //need to work in here to set this route pareameter at night 
-            return redirect()->route('accept.approve.by.admin')->with('success', 'Application as parent successful approved');
+            return redirect()->route('view.parent.application')->with('success', 'Application as parent successful approved');
         }   
     }
 
@@ -96,7 +124,7 @@ class ParentController extends Controller
             $updateUserProfileRecord = UserProfile::where('id',$userProfileId)->update(
                 ['is_applied_by_parent'=>3]
             );
-            return redirect()->route('accept.approve.by.admin')->with('deleleteApplicationMsg', 'Application as parent successfully removed');
+            return redirect()->route('view.parent.application')->with('deleleteApplicationMsg', 'Application as parent successfully removed');
         }   
     }
 }

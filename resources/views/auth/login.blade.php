@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Focus Admin: Widget</title>
+    <title>Student Activity Management System</title>
 
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
@@ -36,10 +36,10 @@
                 <div class="col-lg-6">
                     <div class="login-content">
                         <div class="login-logo">
-                            <a href="index.html"><span>Focus</span></a>
+                            <!-- <a href="index.html"><span>Focus</span></a> -->
                         </div>
                         <div class="login-form">
-                            <h4>Administratior Login</h4>
+                            <h4>Login Here</h4>
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="form-group">
@@ -65,14 +65,6 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Remember Me
-                                    </label>
-                                    <label class="pull-right">
-                                        <a href="#">Forgotten Password?</a>
-                                    </label>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
                                 <div class="register-link m-t-15 text-center">

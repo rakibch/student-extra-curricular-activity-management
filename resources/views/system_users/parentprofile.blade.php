@@ -34,7 +34,7 @@
                         </div>
                         <div class="form-group">
                             <label>Profession</label>
-                            <input type="text" value="{{$getProfileDetails->profession ?? ''}}" name="profession" id="profession" class="form-control" placeholder="Type your phone">
+                            <input type="text" value="{{$getProfileDetails->profession ?? ''}}" name="profession" id="profession" class="form-control" placeholder="Type your profession">
                         </div>
                         <div class="form-group">
                             <div class="form-group">
@@ -47,7 +47,7 @@
                         </div>
                         <div class="form-group">
                             <label>Street Address</label>
-                            <input type="text" value="{{$getProfileDetails->street_address ?? ''}}" name="street_address" id="street_address" class="form-control" placeholder="Type your city">
+                            <input type="text" value="{{$getProfileDetails->street_address ?? ''}}" name="street_address" id="street_address" class="form-control" placeholder="Type your street address">
                         </div>
                         <div class="form-group">
                             <label>City</label>
@@ -61,7 +61,7 @@
 
                         <div class="form-group">
                             <label>Country</label>
-                            <input type="text" name="country" id="country" value="{{$getProfileDetails->city ?? ''}}"  class="form-control" placeholder="Type your state">
+                            <input type="text" name="country" id="country" value="{{$getProfileDetails->city ?? ''}}"  class="form-control" placeholder="Type your country">
                         </div>
                         
                         <div class="form-group">

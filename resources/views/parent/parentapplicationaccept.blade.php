@@ -38,7 +38,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($data as $key=>$value)
+                                        @foreach($dataList as $key=>$value)
                                             <tr>
                                                 <th scope="row">{{++$key}}</th>
                                                 <td>{{ $value['parent_name'] }}</td>
